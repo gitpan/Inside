@@ -1,0 +1,403 @@
+
+README file for inside
+
+This program is available on CPAN:
+
+    http://www.cpan.org/authors/id/P/PH/PHOENIX/
+
+To prepare this program for your system, use a variation on the standard
+incantation:
+
+    perl Makefile.PL
+    make
+    make test		# this may take a moment to complete
+
+Then, install the file 'inside' as needed for a CGI program on your
+system. See your local expert if you're not sure how to do that.
+
+If you're unable to use the standard incantation, try running the command
+'perl inside.PL' instead.
+
+From the embedded documentation:
+
+NAME
+    Inside - Find out what's inside your Perl installation
+
+DESCRIPTION
+    This program will try to report which Perl modules are available
+    on your machine, along with some other useful information.
+    Although it's especially made to be helpful to CGI programmers,
+    it may be of use to other Perl users as well.
+
+    Note that I've done more than a few weird things in this code in
+    order to make it work in some odd surroundings. The right thing
+    to do in general is to fix the broken environments, rather than
+    to work around them. But since the purpose of this program is to
+    diagnose some of those broken environments, I'm breaking the
+    rules. In short: Don't Do As This Code Does! Use the accepted
+    techniques, instead.
+
+    You should be able to run this program on nearly any machine
+    which has Perl, either as a CGI program or stand-alone, although
+    not under Apache/mod_perl's non-CGI environments, like
+    Apache::Registry or Apache::PerlRun. (The ordinary Apache CGI
+    environment is fine, whether mod_perl is installed or not.) The
+    only(?) thing which should need changing in the program text is
+    the location of perl in the #!-line, the first line of the
+    program. There's also a small Configuration section near the top
+    of the source, if you really need to have something to fiddle
+    with.
+
+    Of course, if you're installing this program on a webserver,
+    your local expert may need to help you to get it running. Don't
+    ask me to do it! :-)
+
+FAQ
+    * I can't get it to work! What's wrong?
+        This program tries hard to work in any normal environment,
+        but it may be damaged or misinstalled. If you can run it in
+        a shell (as opposed to running it as a CGI program) you may
+        get more information about what is happening. Check the
+        perldiag manpage for the meaning of any diagnostic messages
+        from perl.
+
+        If you get an error about an "Illegal character", you
+        probably didn't use text mode ("ASCII mode") to transfer the
+        source from one machine to another. Try again, see the
+        perldiag manpage for more help, or ask your local expert.
+
+        If the error message says that "Setting locale failed",
+        check what the perllocale manpage tells you to do to fix
+        your setup.
+
+        If the error message in MacPerl complains that it "Can't
+        emulate -{symbol} on #! line", or if the program
+        mysteriously doesn't run at all, you probably didn't use
+        text mode ("ASCII mode") to transfer the source to the Mac.
+        Try again or ask your local expert.
+
+        When you're having trouble with a CGI program in Perl,
+        here's a handy troubleshooting guide to get you back on
+        track.
+
+           http://www.smithrenaud.com/public/troubleshooting_CGI.html
+
+        If you're running the most recent version of this program
+        and you're still stuck after using the CGI troubleshooting
+        guide (if appropriate), working with your local expert, and
+        thinking about it overnight, then you may try asking about
+        it in the newsgroup comp.lang.perl.modules or writing to me.
+        Don't send me this entire program or its output unless I ask
+        for it! If you've got something long you wish for me to see,
+        put it on the web and send me just the URL.
+
+    * Where can I get the most recent version of this program?
+        It should probably be available (soon) on CPAN.
+
+            http://www.cpan.org/authors/id/P/PH/PHOENIX/
+
+    * Why doesn't this program work with Apache/mod_perl?
+        It does. But this is a CGI program, and Apache::Registry and
+        similar modules don't really use CGI. They're a little
+        different, so as to give certain benefits to some programs.
+        This program couldn't use any of those benefits, even if it
+        could be made compatible with those modules. In particular,
+        it wouldn't run any faster, since nearly all of its time is
+        spent in doing I/O. And are you going to call this program
+        hundreds of times every second? I hope not!
+
+        Simply run this as a normal CGI program, and Apache/mod_perl
+        will be happy with it. If you're not sure how to do that on
+        your machine, check with your local expert.
+
+    * Why did you write this program?
+        There are other solutions to this problem. I didn't like
+        them. Finding the installed modules is actually a complex
+        problem. Most proposed solutions have a number of false
+        positives or false negatives (this one has both; see the
+        rest of this FAQ for details). Some proposed solutions use
+        obfuscated or incorrect code, or don't work on the web with
+        all standard web servers and browsers. This program also has
+        the advantage of this FAQ and (I hope) clear diagnostic
+        messages about problems it may encounter.
+
+    * Why can't I use module ____? This program says it's there.
+        This may be a "false positive".
+
+        This program can't tell whether a module is properly
+        installed. (The only way to do that is to load and test the
+        module. Figuring out how to test an arbitrary piece of code
+        for proper functioning is provably impossible, so I decided
+        not to try.)
+
+        Of course, maybe the module is properly installed, but
+        you're simply using it incorrectly. Stop doing that.
+
+        A proper module should be distributed with tests which you
+        can (and should) use before installing it. If your installed
+        modules won't pass the tests, you should almost certainly
+        (ask your administrator to) rebuild and reinstall that
+        module, ensuring this time that it does pass the tests.
+
+        One possible error is that you may have used the wrong
+        capitalization in the `use' declaration. Check the module's
+        documentation to see how to use it. Neither `use Cgi;' nor
+        `use cgi;' will properly start up the CGI module.
+
+    * Why doesn't this program find all of my modules?
+        This may be a "false negative".
+
+        The "missing" module is not installed (or not properly
+        installed) in one of the search directories. Those
+        directories are the ones from Perl's compiled-in @INC
+        variable (possibly modified by an environment variable) and
+        the extra directories whose names are included in the source
+        of this program.
+
+        You probably want to add your private module/library
+        directory to the @extra_dirs list, in the Configuration
+        section of this program. Also see what the Perl FAQ says
+        about keeping your own module/library directory.
+
+    * How can I include my own module/library directory?
+        Add them to the @extra_dirs list, in the Configuration
+        section. There is a similar question in the Perl FAQ, which
+        is worth reading.
+
+    * Can't I specify search directories with a web form?
+        No. For security reasons, the directory list must be hard-
+        coded.
+
+    * But I want my users to be able to specify their own directories!
+        Why? They can look in their own directories any time they
+        want, can't they? If they want to install their own copy of
+        this program, they can configure it to their needs.
+
+        If you still want this, you probably don't understand the
+        security implications.
+
+    * How can I find out about module dependencies?
+        Determining which modules are needed by which other modules
+        is far beyond the scope of this program.
+
+        There's no way to find module dependencies which always
+        works. But any good module should check for its own
+        dependencies at installation time. If you use the CPAN
+        module to install and upgrade modules, it can help you with
+        this.
+
+        Similarly, if a program needs a module which isn't supplied
+        with perl, this should be made clear in the program's README
+        file, or equivalent.
+
+    * How can I automate installing a bunch of modules?
+        Some folks want to find out which modules are installed so
+        as to automate installing those again on a new system, or
+        with a new version of Perl. This program isn't intended to
+        help with this. See the CPAN module's `autobundle' function,
+        instead.
+
+    * I copied some of your code to my own program, but...
+        Don't do that! I break lots of rules in this program,
+        because I have good reasons and I know what I'm doing. You
+        don't have good reasons, and you don't know what you're
+        doing. :-)
+
+    * Why does the version number for module ____ come out wrong?
+        For the same reason that so many version numbers are
+        "unknown".
+
+    * Why do so many modules show the version number as "unknown"?
+        There are several possible reasons. But if you don't have a
+        warning that gives another reason, it may be because the
+        module author hasn't included the version number in the
+        standard format. See the docs for ExtUtils::MakeMaker, in
+        the section on VERSION_FROM. But (for technical reasons)
+        this code can't be as smart as ExtUtils::MakeMaker, so it
+        will sometimes get the version number wrong or not get it at
+        all.
+
+        Technical note: Okay, if you must know. ExtUtils::MakeMaker
+        actually runs some of each module's code in order to
+        determine its version. That could be a security hole, if the
+        module might contain rogue code. I'm not going to take the
+        chance. Version numbers aren't that hard to find out on your
+        own.
+
+        If you're a module author and this program doesn't do as
+        well as ExtUtils::MakeMaker at determining your module's
+        version number, please cook up a fix. Preferably, to your
+        module, rather than to this program. :-)
+
+    * Why are so many programs listed as "Libraries"?
+        Your programs are using the file extension ".pl", which
+        means "Perl Library". On many systems, extensions for
+        programs aren't needed and shouldn't be used. If you must
+        have an extension on your program names, it's best to set up
+        your system to use ".plx", which means "Perl Executable",
+        then use that extension instead.
+
+        This seems to be a losing battle, since ActiveState (and
+        others?) strongly encourage the use of the wrong extension.
+
+        If you wish to keep some of these from showing up, add a
+        directory or file path to the @prune_dirs array (in the
+        Configuration section). Unless you have both libraries and
+        programs in the same directory (yet another reason for
+        different extensions!) you can simply list directory names
+        to exclude them and their contents. But listing a program
+        won't hurt you any, if you know it's not a library.
+
+    * Why does it take so long to run?
+        This program may take perhaps more than a minute to run,
+        depending upon your system's load, the number of modules
+        installed, and so on. It's gathering a lot of information
+        about your system! If you're installing it as a CGI program,
+        you may be able to make it work as an NPH-program. (This is
+        no faster, but it does produce some output sooner, for the
+        benefit of you impatient folks.) Set it up just like any
+        other CGI program, but make sure that the first four
+        characters of the file's name are "nph-", and it should work
+        automatically. If it doesn't make any difference, well, then
+        you just have to wait for the output, that's all.
+
+    * Why does it run faster after the first time?
+        Much of the overhead of running this program is I/O.
+        Probably your system has cached the information which it
+        read off of your filesystem. Try again after some time, and
+        it will be like the first time again.
+
+    * Why do the "modules found" messages at the top always differ?
+        There are some things man was not meant to know.
+
+    * Is there any way to configure this program to ____?
+        Sometimes folks want to turn part of the output on or off.
+        Maybe they want to put their own URL into the output. Maybe
+        they want to change something else.
+
+        Well, you probably can't. This program is more like a
+        stethoscope than an ultrasound machine. It doesn't have a
+        lot of dials and knobs.
+
+        See the intentionally-small "Configuration" section of the
+        program, though, if you really wish to tweak something.
+
+        Please, see the license and disclaimer before you change any
+        code.
+
+    * Why doesn't it find modules relative to the current directory?
+        When it's run over the web (that is, as a CGI program) this
+        program will ignore relative paths. (These are directory
+        paths which don't start with a slash, on Unix. On other
+        systems, there may be other kinds of relative paths, but all
+        relative paths start from the "current working directory".)
+
+        The current working directory is not part of the CGI
+        specification. Since a CGI program can't rely upon it, it
+        must always change to a non-relative directory before it can
+        safely use a relative path. (A future version of the CGI
+        spec may change this - but that won't help existing programs
+        and webservers.)
+
+    * But I use `chdir' before I load modules!
+        You probably aren't doing that correctly. If you do know
+        enough to do this correctly, I can instruct you no further
+        here.
+
+        Anyone else, just use absolute paths in @INC, and in the
+        @extra_dirs.
+
+    * Is this program vulnerable to any security problems?
+        Every program is. See the disclaimer elsewhere in the
+        documentation.
+
+        One possible problem, which is beyond the scope of this
+        program to fix, is a Denial of Service ("DoS") attack.
+        Briefly, this program takes time to run. If someone were to
+        set up other computers to call this program over the web as
+        frequently as possible, your webserver could become very
+        slow for all legitimate users. But this can happen, to some
+        extent, with any program that remote users can run - even
+        with your webserver itself.
+
+        If you worry about DoS attacks using this program, simply
+        disable it whenever you're not using it. On most Unix-type
+        webservers, that's easy to do by using chmod(1) to set the
+        permissions to 0. On some webservers, you may need to change
+        the name or remove the program entirely. See your local
+        expert for details. No, you can't enable or disable it over
+        the web - that would defeat the purpose, wouldn't it?
+
+    * Why don't you use warnings and 'use strict' and....?
+        Because this program is purposefully written in a way which
+        will work around various system (mis)configurations. And
+        actually, barring quirks in some future version of perl, I
+        am using warnings and 'use strict'. You just might not be
+        able to see how I'm doing it. :-)
+
+    * Why aren't you using taint checking?
+        This program shouldn't need that to be secure. A program
+        without taint checks can be secure, just as one with them
+        can be unsafe.
+
+        When taint checks aren't used, we may use Perl's eval()
+        function on a string from another module. Since we first
+        check that the module is owned and writable only by the
+        system administrator, this doesn't open up any new security
+        hole. (If your installed modules aren't safe, though, it
+        opens up that existing security hole. :-) That is to say,
+        this technique is no more insecure in general than using the
+        modules installed on your system.
+
+        If you wish to use taint checking, it can be enabled in the
+        usual way, by adding the '-T' option to the $# line at the
+        top of the program. Just know that when taint checks are
+        enabled, you may not be able to determine the version
+        numbers of some modules. Rarely, you may get incorrect
+        version numbers from a few modules.
+
+    * Why doesn't this work with perl4?
+        Do you remember when O. J. Simpson was known primarily as an
+        ex-football player who made TV commercials? Perl 4 is older
+        than that. Give it up. It's dead. Besides, such old perl
+        can't use modules anyway!
+
+COPYRIGHT, DISCLAIMER, AND LICENSE
+    Copyright (C) 2000 by Tom Phoenix <rootbeer@redcat.com>.
+
+    THIS PROGRAM IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+    IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+    WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR
+    PURPOSE.
+
+    This program is free software; you can distribute it under the
+    same terms as Perl itself. I don't recommend modifying it or
+    distributing variant versions. In fact, I discourage modifying
+    it, unless you're sure you know what you're doing. And if you do
+    modify something, make sure that you've clearly labelled
+    whatever you've done. On the other hand, if you come up with a
+    cool or useful modification, let me know. And don't forget to
+    periodically check CPAN for updates.
+
+        http://www.cpan.org/authors/id/P/PH/PHOENIX/
+
+    Be cautious that, if you modify this code in any way, you do not
+    introduce security holes. Although I have, to the best of my
+    knowledge and ability, made this program as safe as is
+    practicable, it may have flaws which could cause undesirable
+    effects. Still, I don't think it's too bad: I run it myself.
+
+AUTHOR
+    Tom Phoenix <rootbeer@redcat.com> with plenty of help from other
+    folks, including (in no particular order) "Tolkin, Steve"
+    <Steve.Tolkin@fmr.com>, Mark Lybrand <markyesme@home.com>, Eric
+    Cholet <cholet@logilune.com>, Drew Simonis
+    <care227@attglobal.net>, Tim Conrow <tim@ipac.caltech.edu>,
+    Richard Martin Woodward <RichardWoodward@hotmail.com>, JohnShep
+    <john@princenaseem.com>, Mike Solomon <mike.solomon@eps.ltd.uk>,
+    Anno Siegel <anno4000@lublin.zrz.TU-Berlin.DE>, Randall Woodman
+    <rwoodman@verio.net>, Ken MacFarlane <ksm@dca.net>, and anyone
+    whose name I've accidentally omitted. It wouldn't have been
+    possible without all this help.
+
+
