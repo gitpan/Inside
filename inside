@@ -73,7 +73,7 @@ my @core_modules = qw{
 
 my $Id = q$Id: inside.PL,v 0.5 2000/12/08 16:44:08 rootbeer Exp rootbeer $;
 my # Fooling MakeMaker
-$VERSION = '0.13';
+$VERSION = '1.00';
 
 # We're not compatible with Apache::Registry, so let's keep from
 # leaving mod_perl hosed. Nevertheless, it may already be too late.
@@ -1047,6 +1047,10 @@ local expert.
 If the error message says that "Setting locale failed", check what the
 perllocale manpage tells you to do to fix your setup.
 
+If it seems to run and produces no output from the command line, check
+that you didn't run the configuration program 'B<inside.PL>' rather than
+the real program 'B<inside>'.
+
 If the error message in MacPerl complains that it "Can't emulate
 -{symbol} on #! line", or if the program mysteriously doesn't run at
 all, you probably didn't use text mode ("ASCII mode") to transfer the
@@ -1067,7 +1071,7 @@ see, put it on the web and send me B<just> the URL.
 
 =item * Where can I get the most recent version of this program?
 
-It should probably be available (soon) on CPAN.
+It should be available on CPAN.
 
     http://www.cpan.org/authors/id/P/PH/PHOENIX/
 

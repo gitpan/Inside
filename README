@@ -71,6 +71,10 @@ FAQ
         check what the perllocale manpage tells you to do to fix
         your setup.
 
+        If it seems to run and produces no output from the command
+        line, check that you didn't run the configuration program
+        'inside.PL' rather than the real program 'inside'.
+
         If the error message in MacPerl complains that it "Can't
         emulate -{symbol} on #! line", or if the program
         mysteriously doesn't run at all, you probably didn't use
@@ -93,7 +97,7 @@ FAQ
         put it on the web and send me just the URL.
 
     * Where can I get the most recent version of this program?
-        It should probably be available (soon) on CPAN.
+        It should be available on CPAN.
 
             http://www.cpan.org/authors/id/P/PH/PHOENIX/
 
