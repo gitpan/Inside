@@ -85,7 +85,7 @@ FAQ
         here's a handy troubleshooting guide to get you back on
         track.
 
-           http://www.smithrenaud.com/public/troubleshooting_CGI.html
+            http://www.smithrenaud.com/public/troubleshooting_CGI.html
 
         If you're running the most recent version of this program
         and you're still stuck after using the CGI troubleshooting
@@ -262,9 +262,10 @@ FAQ
         no faster, but it does produce some output sooner, for the
         benefit of you impatient folks.) Set it up just like any
         other CGI program, but make sure that the first four
-        characters of the file's name are "nph-", and it should work
-        automatically. If it doesn't make any difference, well, then
-        you just have to wait for the output, that's all.
+        characters of the file's name are "nph-", adjust the URL
+        accordingly, and it should work automatically. If it doesn't
+        make any difference, well, then you just have to wait for
+        the output, that's all.
 
     * Why does it run faster after the first time?
         Much of the overhead of running this program is I/O.
@@ -372,16 +373,16 @@ COPYRIGHT, DISCLAIMER, AND LICENSE
 
     THIS PROGRAM IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
     IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
-    WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
     PURPOSE.
 
     This program is free software; you can distribute it under the
     same terms as Perl itself. I don't recommend modifying it or
     distributing variant versions. In fact, I discourage modifying
     it, unless you're sure you know what you're doing. And if you do
-    modify something, make sure that you've clearly labelled
-    whatever you've done. On the other hand, if you come up with a
-    cool or useful modification, let me know. And don't forget to
+    modify something, make sure that you've clearly labeled whatever
+    you've done. On the other hand, if you come up with a cool or
+    useful modification, let me know. And don't forget to
     periodically check CPAN for updates.
 
         http://www.cpan.org/authors/id/P/PH/PHOENIX/
@@ -402,8 +403,7 @@ AUTHOR
     <john@princenaseem.com>, Mike Solomon <mike.solomon@eps.ltd.uk>,
     Anno Siegel <anno4000@lublin.zrz.TU-Berlin.DE>, Randall Woodman
     <rwoodman@verio.net>, Ken MacFarlane <ksm@dca.net>, Philip
-    Newton <philip.newton@datenrevision.de>, and anyone whose name
-    I've accidentally omitted. It wouldn't have been possible
-    without all this help.
+    Newton <pne@cpan.org>, and anyone whose name I've accidentally
+    omitted. It wouldn't have been possible without all this help.
 
 

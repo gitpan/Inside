@@ -10,8 +10,15 @@ Revision history for Perl utility program Inside.
 	  unfixed by RCS, so many fixes for that. Adjusted the
 	  top-of-program magic to (I hope) not make warnings. Added
 	  local() to some uses of $^W.
-0.12  Thu Dec 7 2000
+0.12  Thu Dec  7 2000
 	- Small fix for MacPerl support.
-0.13  Fri Dec 8 2000
+0.13  Fri Dec  8 2000
 	- Rounded CPU seconds to nearest tenth. Fixed tests to (maybe)
 	  work on more systems.
+1.00  Fri Dec  8 2000
+	- Bumped version number to 1.00.
+	- First public release.
+
+1.01  Wed Mar 21 2001
+	- Fixed minor misspellings, one e-mail address, other trivial
+	  changes.

@@ -71,9 +71,9 @@ my @core_modules = qw{
 
 # No user-serviceable parts after this point
 
-my $Id = q$Id: inside.PL,v 0.5 2000/12/08 16:44:08 rootbeer Exp rootbeer $;
+my $Id = q$Id: inside.PL,v 0.6 2001/03/22 00:16:41 rootbeer Exp rootbeer $;
 my # Fooling MakeMaker
-$VERSION = '1.00';
+$VERSION = '1.01';
 
 # We're not compatible with Apache::Registry, so let's keep from
 # leaving mod_perl hosed. Nevertheless, it may already be too late.
@@ -1059,7 +1059,7 @@ source to the Mac. Try again or ask your local expert.
 When you're having trouble with a CGI program in Perl, here's a handy
 troubleshooting guide to get you back on track. 
 
-   http://www.smithrenaud.com/public/troubleshooting_CGI.html
+    http://www.smithrenaud.com/public/troubleshooting_CGI.html
 
 If you're running the most recent version of this program and you're
 still stuck after using the CGI troubleshooting guide (if appropriate),
@@ -1232,8 +1232,9 @@ it as a CGI program, you may be able to make it work as an NPH-program.
 (This is no faster, but it does produce some output sooner, for the
 benefit of you impatient folks.) Set it up just like any other CGI
 program, but make sure that the first four characters of the file's name
-are "nph-", and it should work automatically. If it doesn't make any
-difference, well, then you just have to wait for the output, that's all.
+are "nph-", adjust the URL accordingly, and it should work
+automatically. If it doesn't make any difference, well, then you just
+have to wait for the output, that's all.
 
 =item * Why does it run faster after the first time?
 
@@ -1341,13 +1342,13 @@ Copyright (C) 2000 by Tom Phoenix <rootbeer@redcat.com>.
 
 THIS PROGRAM IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
 IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
-WARRANTIES OF MERCHANTIBILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
 
 This program is free software; you can distribute it under the same
 terms as Perl itself. I don't recommend modifying it or distributing
 variant versions. In fact, I discourage modifying it, unless you're sure
 you know what you're doing. And if you do modify something, make sure
-that you've clearly labelled whatever you've done. On the other hand, if
+that you've clearly labeled whatever you've done. On the other hand, if
 you come up with a cool or useful modification, let me know. And don't
 forget to periodically check CPAN for updates.
 
@@ -1370,7 +1371,6 @@ including (in no particular order) "Tolkin, Steve"
 Solomon <mike.solomon@eps.ltd.uk>, Anno Siegel
 <anno4000@lublin.zrz.TU-Berlin.DE>, Randall Woodman
 <rwoodman@verio.net>, Ken MacFarlane <ksm@dca.net>, Philip Newton
-<philip.newton@datenrevision.de>, and anyone whose name I've
-accidentally omitted. It wouldn't have been possible without all this
-help.
+<pne@cpan.org>, and anyone whose name I've accidentally omitted.
+It wouldn't have been possible without all this help.
 
