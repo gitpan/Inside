@@ -1,13 +1,17 @@
 Revision history for Perl utility program Inside.
 
-0.07  Mon Dec  4
+0.07  Mon Dec  4 2000
 	- original version (with a Makefile.PL and all)
-0.10  Thu Dec  7
+0.10  Thu Dec  7 2000
 	- Fixed missing backslash in regular expression, minor other
 	  fixes. Added copyright notice to misc files.
-0.11  Thu Dec  7
+0.11  Thu Dec  7 2000
 	- Fixed that missing backslash for real this time. It was being
 	  unfixed by RCS, so many fixes for that. Adjusted the
 	  top-of-program magic to (I hope) not make warnings. Added
 	  local() to some uses of $^W.
-
+0.12  Thu Dec 7 2000
+	- Small fix for MacPerl support.
+0.13  Fri Dec 8 2000
+	- Rounded CPU seconds to nearest tenth. Fixed tests to (maybe)
+	  work on more systems.

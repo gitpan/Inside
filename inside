@@ -71,9 +71,9 @@ my @core_modules = qw{
 
 # No user-serviceable parts after this point
 
-my $Id = q$Id: inside.PL,v 0.4 2000/12/07 18:53:10 rootbeer Exp rootbeer $;
+my $Id = q$Id: inside.PL,v 0.5 2000/12/08 16:44:08 rootbeer Exp rootbeer $;
 my # Fooling MakeMaker
-$VERSION = '0.11';
+$VERSION = '0.13';
 
 # We're not compatible with Apache::Registry, so let's keep from
 # leaving mod_perl hosed. Nevertheless, it may already be too late.
@@ -83,7 +83,7 @@ BEGIN {
 	    "Content-type: text/plain\x0d\x0a\x0d\x0a",
 	    "This program can't run under this Apache module.\n",
 	    "Please disable it right away!\n\n";
-	eval 'CORE::exit(1)';	# in case exit is disabled
+	eval 'CORE::exit(1)';	# in case exit is redefined
 	exit(1);	# in case the first didn't work
     }
 }
@@ -144,10 +144,16 @@ BEGIN {
 
     my $code = q{
 	sub parse_version { "unknown" }
-	sub file_name_is_absolute { $_[1] =~ m#^/# }
+	sub file_name_is_absolute {
+	    if (($^O || '') eq 'MacOS') {
+		$_[1] !~ /^:/;
+	    } else {
+		$_[1] =~ m#^/#;
+	    }
+	}
 	sub no_upwards { grep !/^\.\.?(?!\n)$/, @_[1..$#_] }
 	sub catfile {
-	    if ($^O and $^O eq 'MacOS') {
+	    if (($^O || '') eq 'MacOS') {
 		# I hope this will still work under MacOS X
 	        my @items = @_[1..$#_];
 		for (@items) { s/:(?!\n)$// }
@@ -979,7 +985,7 @@ if ($@) {
     my $start;
     BEGIN { $start = time }
     my $real_seconds = time - $start;
-    my($cpu_seconds) = eval { times } || 'unknown';
+    my($cpu_seconds) = eval { sprintf "%.1f", scalar times } || 'unknown';
     print "Done in $real_seconds seconds ($cpu_seconds CPU seconds).\n";
 }
 

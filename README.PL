@@ -9,7 +9,10 @@
 use strict;
 
 $ENV{COLUMNS} = 72;
-my $manpage = `perldoc -t ./inside`;
+open STDERR, ">ERRORS"
+    or warn "Can't redirect STDERR to file 'ERRORS': $!";
+END { unlink 'ERRORS'; } # Ignore if it fails
+my $manpage = `perldoc -t ./inside.PL` || `perldoc -t ./inside`;
 die "Couldn't run perldoc; status was $?" if $? or !$manpage;
 
 chmod 0644, "README";	# in case it's unwritable; ignore if it fails

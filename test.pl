@@ -15,7 +15,7 @@ print "# This may take a moment...\n";
 open STDERR, ">ERRORS"
     or die "Can't create 'ERRORS' file: $!";
 
-my @output = `./inside`;
+my @output = `perl inside`;
 
 print "not " if $? or @output < 20;
 print "ok 1\n";
