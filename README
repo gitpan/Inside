@@ -15,8 +15,9 @@ incantation:
 Then, install the file 'inside' as needed for a CGI program on your
 system. See your local expert if you're not sure how to do that.
 
-If you're unable to use the standard incantation, try running the command
-'perl inside.PL' instead.
+If you're unable to use the standard incantation, try running the
+command 'perl inside.PL' instead. Or you may need to manually fix up the
+file 'inside' for use as a CGI program on your system.
 
 From the embedded documentation:
 
@@ -396,8 +397,9 @@ AUTHOR
     Richard Martin Woodward <RichardWoodward@hotmail.com>, JohnShep
     <john@princenaseem.com>, Mike Solomon <mike.solomon@eps.ltd.uk>,
     Anno Siegel <anno4000@lublin.zrz.TU-Berlin.DE>, Randall Woodman
-    <rwoodman@verio.net>, Ken MacFarlane <ksm@dca.net>, and anyone
-    whose name I've accidentally omitted. It wouldn't have been
-    possible without all this help.
+    <rwoodman@verio.net>, Ken MacFarlane <ksm@dca.net>, Philip
+    Newton <philip.newton@datenrevision.de>, and anyone whose name
+    I've accidentally omitted. It wouldn't have been possible
+    without all this help.
 
 

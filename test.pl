@@ -1,5 +1,11 @@
 #!/usr/bin/perl -w
 
+# This is part of the 'inside' program, and covered by the same license. 
+# Copyright (C) 2000 Tom Phoenix <rootbeer@redcat.com>
+# http://www.cpan.org/authors/id/P/PH/PHOENIX/
+
+# Tests for the 'inside' program
+
 use strict;
 
 $|=1;

@@ -1,6 +1,12 @@
 #!/usr/bin/perl -w
 
+# This is NOT the CGI program 'inside'! Don't install this!
+
 # Prepare the program 'inside' to be run on this system.
+
+# This is part of the 'inside' program, and covered by the same license. 
+# Copyright (C) 2000 Tom Phoenix <rootbeer@redcat.com>
+# http://www.cpan.org/authors/id/P/PH/PHOENIX/
 
 use strict;
 use Config;
@@ -23,9 +29,11 @@ chmod 0755, 'inside'
 
 my $magic = q{#!$perlpath
 
-    eval '(exit $?0)' && eval 'exec $perlpath -wS $0 ${1+"$@"}'
-	& eval 'exec $perlpath -wS $0 $argv:q'
-	    if $running_under_some_shell;
+    # Do not read this magic spell
+    eval '(exit $?0)' && eval 'exec $perlpath -S $0 ${1+"$@"}'
+        && eval 'exec $perlpath -S $0 $argv:q'
+            if $running_under_some_shell;
+    $running_under_some_shell = undef;
 };
 
 my $perlpath = $Config{perlpath} || '/usr/bin/perl';
@@ -108,9 +116,9 @@ my @core_modules = qw{
 
 # No user-serviceable parts after this point
 
-my $Id = q$Id: inside,v 0.5 2000/12/06 18:18:53 rootbeer Exp $;
+my $Id = q$Id: inside.PL,v 0.4 2000/12/07 18:53:10 rootbeer Exp rootbeer $;
 my # Fooling MakeMaker
-$VERSION = '0.08';
+$VERSION = '0.11';
 
 # We're not compatible with Apache::Registry, so let's keep from
 # leaving mod_perl hosed. Nevertheless, it may already be too late.
@@ -379,7 +387,7 @@ BEGIN {
     }
 
     return unless eval {
-	$^W = 0;	# no warnings if any of these are undef
+	local $^W = 0;	# no warnings if any of these are undef
 
 	return		# fix bug in some perls
 	-d '/dev' and
@@ -540,25 +548,27 @@ sub extract_version {
 	if ($code =~ /^\s*=\s*(["'])([^"']+)\1;/) {
 	    $version = $2;
 	}
-    } elsif (/=substr[ (]q\$Revision: 0.5 $,10\)?(\+0)?;/) {
-	# $VERSION = substr q$Revision: 0.5 $, 10;
+    } elsif (/=substr[ (]q\$\x52evision: 0.3 \$,10\)?(\+0)?;/) {
+	# I have to write 'Revision:' that way, so that RCS doesn't keep
+	# "fixing" my code every time I check in these sources.
+	# $VERSION = substr q$\x52evision: 0.3 $, 10;
 	if ($2) {
 	    # Force numeric
 	    $version = eval {
-		$^W = 0;	# No warning on bad numbers
+		local $^W = 0;	# No warning on bad numbers
 		$1 + 0;
 	    };
 	} else {
 	    $version = $1;
 	}
     } elsif (/=substr\(q\$[^\$]+\$,(\d+)(?:,(-?\d+))?\)(-\d+)?;/) {
-	# $VERSION = substr(q$Revision: 0.5 $, 9,-1) -1;
+	# $VERSION = substr(q$\x52evision: 5.3 $, 9,-1) -1;
 	my($start, $len, $offset) = ($1, $2, $3);
 	$len = 9999 unless defined $len;
 	$offset = 0 unless defined $offset;
 	if ($code =~ /q\$([^\$]+)\$/) {
 	    $version = eval {
-		$^W = 0;	# No warning on bad numbers
+		local $^W = 0;	# No warning on bad numbers
 		substr($1, $start, $len) + $offset;
 	    };
 	}
@@ -566,7 +576,7 @@ sub extract_version {
 	m#^=sprintf[ (](["'])[^"']+\1,q\$[^\$]+\$=~ ?/([^/]+)/\);#
     ) {
 	# $VERSION = sprintf("%d.%02d", 
-	# q$Revision: 0.5 $ =~ /(\d+)\.(\d+)/);
+	# q$\x52evision: 0.3 $ =~ /(\d+)\.(\d+)/);
 	my $pattern = $2;
 	if (
 	    $code =~ /sprintf[\s(]*(["'])([\w%.]+)\1,\s*q\$([^\$]+)\$/
@@ -582,7 +592,7 @@ sub extract_version {
 	/=do\{my ?\@\w+=\(?q\$[^\$]+\$=~ ?\/\\d\+\/g\)?;(.*)/
     ) { # \}
 	# Original was one line, of course....
-	# $VERSION = do { my @a=q$Name:  $ =~ /\d+/g;
+	# $VERSION = do { my @a=q$\x4Eame: foobar 1.5 $ =~ /\d+/g;
 	# sprintf "%d." . ("%02d" x $#a ),@a };
 	my $rest = $1;
 	if (
@@ -595,7 +605,7 @@ sub extract_version {
 	    }
 	}
     } elsif (/^=\(qw\$[^\$]+\$\)\[(\d+)\];/) {
-	# $VERSION = (qw$Revision: 0.5 $)[1];
+	# $VERSION = (qw$\x52evision: 0.3 $)[1];
 	# clever...
 	my $which = $1;
 	if ($code =~ /qw\$([^\$]+)\$/) {
@@ -609,7 +619,7 @@ sub extract_version {
 		q{ = (split (' ', },
 		q{))[1]) =~ s/\.(\d)$/.0$1/;} )
 	) {
-	    # ($VERSION = (split (' ', q$Revision: 0.5 $
+	    # ($VERSION = (split (' ', q$\x52evision: 0.3 $
 	    # ))[1]) =~ s/\.(\d)$/.0$1/;
 	    # Like that's not gonna break
 	    if ($middle =~ /q\$([^\$]+)\$/) {
@@ -1394,7 +1404,8 @@ including (in no particular order) "Tolkin, Steve"
 <RichardWoodward@hotmail.com>, JohnShep <john@princenaseem.com>, Mike
 Solomon <mike.solomon@eps.ltd.uk>, Anno Siegel
 <anno4000@lublin.zrz.TU-Berlin.DE>, Randall Woodman
-<rwoodman@verio.net>, Ken MacFarlane <ksm@dca.net>, and anyone whose
-name I've accidentally omitted. It wouldn't have been possible without
-all this help.
+<rwoodman@verio.net>, Ken MacFarlane <ksm@dca.net>, Philip Newton
+<philip.newton@datenrevision.de>, and anyone whose name I've
+accidentally omitted. It wouldn't have been possible without all this
+help.
 

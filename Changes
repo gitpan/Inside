@@ -1,5 +1,13 @@
 Revision history for Perl utility program Inside.
 
-0.01  Wed Dec  6 11:10:40 2000
-	- original version; created by h2xs 1.18
+0.07  Mon Dec  4
+	- original version (with a Makefile.PL and all)
+0.10  Thu Dec  7
+	- Fixed missing backslash in regular expression, minor other
+	  fixes. Added copyright notice to misc files.
+0.11  Thu Dec  7
+	- Fixed that missing backslash for real this time. It was being
+	  unfixed by RCS, so many fixes for that. Adjusted the
+	  top-of-program magic to (I hope) not make warnings. Added
+	  local() to some uses of $^W.
 

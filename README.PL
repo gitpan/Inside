@@ -1,8 +1,12 @@
 #!/usr/bin/perl -w
 
-use strict;
-
 # Writes the README file for inside
+
+# This is part of the 'inside' program, and covered by the same license. 
+# Copyright (C) 2000 Tom Phoenix <rootbeer@redcat.com>
+# http://www.cpan.org/authors/id/P/PH/PHOENIX/
+
+use strict;
 
 $ENV{COLUMNS} = 72;
 my $manpage = `perldoc -t ./inside`;
@@ -31,8 +35,9 @@ incantation:
 Then, install the file 'inside' as needed for a CGI program on your
 system. See your local expert if you're not sure how to do that.
 
-If you're unable to use the standard incantation, try running the command
-'perl inside.PL' instead.
+If you're unable to use the standard incantation, try running the
+command 'perl inside.PL' instead. Or you may need to manually fix up the
+file 'inside' for use as a CGI program on your system.
 
 From the embedded documentation:
 
